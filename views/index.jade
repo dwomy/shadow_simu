@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  h1= title
+  div
+    span
+      シャドバポータルでデッキコードを入力した後のページかデッキコード発行したページのURLを入れて「デッキ取得」>「開始」。
+      （動かなくても泣かない）
+    br
+    input#deckurl(type="text")
+    input#getDeck(type="button", name="getDeck", value="デッキ取得", onClick="CB.getDeck(document.getElementById('deckurl').value)")
+  br
+  div#status
+  ul#hand(class="cardboard")
+  br
+  div#toolbox
+      input#start(type="button", name="start", value="開始", onClick="CB.start()")
+  br
+  textarea#message(rows="15", cols="65")
+  textarea#used(rows="15", cols="65")
+  br
+  ul#deck(stlye='display: none;')
+
