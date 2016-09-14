@@ -7,9 +7,27 @@ block content
       シャドバポータルでデッキコードを入力した後のページかデッキコード発行したページのURLを入れて「デッキ取得」>「開始」。
       （動かなくても泣かない）
     br
-    input#deckurl(type="text")
+    input#deckurl(type="text", value="https://shadowverse-portal.com/deck/1.6.63dOW.63dOW.63dOW.63fr4.63fr4.63gJY.63gJY.63frE.63frE.63frE.5_p-4.5_p-4.5_p-4.63e74.63e74.63e74.5_pzw.63dO-.63dO-.63fqc.63fqc.63frO.63frO.63iGi.63iGi.5_pFg.5_pFg.61LeE.61LeE.61LeE.63gZA.63gZA.63kj6.63kj6.5_pFW.5_pFW.5_pFW.63dOg.63dOg.63dOg")
     input#getDeck(type="button", name="getDeck", value="デッキ取得", onClick="CB.getDeck(document.getElementById('deckurl').value)")
   br
+  label(for="memo") メモ
+  textarea#memo(name="memo", rows="15", cols="65")
+  br
+  div
+    label(for="hp") hp
+    input#hp(type="text", name="hp", value="20", style="width: 30px;")
+    input#hp_plus(type="button", value="+", onClick="document.getElementById('hp').value++;")
+    input#hp_minus(type="button", value="-", onClick="document.getElementById('hp').value--;")
+  div
+    label(for="damage") damage
+    input#damage(type="text", name="hp", value="0", style="width: 30px;")
+    input#damage_plus(type="button", value="+", onClick="document.getElementById('damage').value++;")
+    input#damage_minus(type="button", value="-", onClick="document.getElementById('damage').value--;")
+  div#ep_area(style="display: none;")
+    label(for="ep") ep
+    input#ep(type="text", name="ep", value="2", style="width: 30px;")
+    input#ep_plus(type="button", value="+", onClick="document.getElementById('ep').value++;")
+    input#ep_minus(type="button", value="-", onClick="document.getElementById('ep').value--;")
   div#status
   ul#hand(class="cardboard")
   br

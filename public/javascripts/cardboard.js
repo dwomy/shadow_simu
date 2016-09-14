@@ -1,6 +1,24 @@
 // カード管理
 var CB = (function(w, d){
+    // init
+    $(document).ready(function(){
+        console.log("load memo");
+        $("#memo").val($.cookie("memo"));
+        $("#memo").
+            change(function(){
+                console.log("save memo");
+                $.cookie("memo", $("#memo").val(), { expires: 7 });
+            });
+    });
+
     return{
+        const: {
+            char_types: {
+                1: 'F',
+                3: 'A',
+                4: 'S',
+            }
+        },
         pp: 0,
         ep: 0,
         turn_num: 0,
@@ -52,8 +70,14 @@ var CB = (function(w, d){
             for(var i = 0; i < cards_json.length; i++){
                 var card_info = cards_json[i];
 
-                $("#deck").append("<li>(" + card_info['cost'] + ")" + card_info['card_name'] + "</li>")
-                cards.push({name: card_info['card_name'], cost: card_info['cost']});
+                $("#deck").append("<li>(" + card_info['cost'] + ")" + card_info['card_name'] + "(" + CB.const['char_types'][card_info['char_type']] + ")</li>")
+                cards.push({
+                    name: card_info['card_name'],
+                    cost: card_info['cost'],
+                    char_type: card_info['char_type'],
+                    atk: card_info['atk'],
+                    life: card_info['life'],
+                });
             }
             if(cards.length == 40){
                 $("#deck").show();
@@ -89,7 +113,13 @@ var CB = (function(w, d){
                 CB.ep = 3;
                 CB.first_draw_num = 2;
             }
+            $("#hp").val(20);
+            $("#damage").val(0);
+            $("#ep").val(CB.ep);
             CB.is_first = is_first;
+
+            // 進化ゾーンは隠す
+            $("#ep_area").hide();
 
             // 最初に指定枚数カード引く
             for(var i = 0; i < CB.init_draw_num; i++){
@@ -118,6 +148,9 @@ var CB = (function(w, d){
                 CB.log("===== " + CB.turn_num + "ターン");
                 CB.draw();
             }
+
+            // 後攻4ターン or 先攻5ターンなら進化可能に
+            if((!CB.is_first && CB.turn_num == 4) || (CB.is_first && CB.turn_num == 5)) $("#ep_area").show();
 
             CB.refresh();
         },
@@ -162,8 +195,10 @@ var CB = (function(w, d){
                         + "</li>");
                 } else {
                     $("#hand").append("<li>"
+                        + "(" + card['cost'] + ")"
+                        + "<br>"
                         + card['name']
-                        + "<br>" + "(" + card['cost'] + ")"
+                        + "<br>" + (parseInt(card['atk']) > 0 || parseInt(card['life']) ? card['atk'] + "/" + card['life'] : "")
                         + "<br>"
                         + "<input type='button' name='' value='使う' onClick='CB.discard(" + i + ")'>"
                         + "</li>");
