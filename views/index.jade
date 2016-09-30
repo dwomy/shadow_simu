@@ -20,9 +20,14 @@ block content
     input#hp_minus(type="button", value="-", onClick="document.getElementById('hp').value--;")
   div
     label(for="damage") damage
-    input#damage(type="text", name="hp", value="0", style="width: 30px;")
+    input#damage(type="text", name="damage", value="0", style="width: 30px;")
     input#damage_plus(type="button", value="+", onClick="document.getElementById('damage').value++;")
     input#damage_minus(type="button", value="-", onClick="document.getElementById('damage').value--;")
+  div
+    label(for="graveyard") 墓場
+    input#graveyard(type="text", name="graveyard", value="0", style="width: 30px;")
+    input#graveyard_plus(type="button", value="+", onClick="document.getElementById('graveyard').value++;")
+    input#graveyard_minus(type="button", value="-", onClick="document.getElementById('graveyard').value--;")
   div#ep_area(style="display: none;")
     label(for="ep") ep
     input#ep(type="text", name="ep", value="2", style="width: 30px;")
